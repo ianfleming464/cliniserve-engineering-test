@@ -17,6 +17,12 @@ export const fetchData = async () => {
 export const fetchHistoryData = async () => {
 	try {
 		const hist = await axios.get(`${url}/history/cases/30`);
-		return hist.data.data["09162"].history;
+		// console.log(hist);
+		// return hist.data.data["09162"].history;
+		const histArr = hist.data.data["09162"].history;
+		// console.log(histArr);
+		// create array with key
+		const newHistArray = histArr.map((element) => element.cases);
+		return newHistArray;
 	} catch (err) {}
 };

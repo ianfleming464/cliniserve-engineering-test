@@ -8,7 +8,7 @@ export default class App extends React.Component {
 		super();
 		this.state = {
 			munichInfo: {},
-			caseHistory: null
+			monthlyCases: null
 		};
 	}
 	async componentDidMount() {
@@ -18,11 +18,14 @@ export default class App extends React.Component {
 		// Fetch history data for cases (last 30 days)
 
 		const caseHistory = await fetchHistoryData();
-		// console.log(caseHistory);
+		const monthlyCases = caseHistory.reduce((accumulator, currentValue) => {
+			return accumulator + currentValue;
+		}, 0);
+		console.log(monthlyCases);
 
 		// TO DO:
-		// 1. Extract the case numbers from each day of the last 30 days.
-		// 2. Get a total case number.
+		// 1. Extract the case numbers from each day of the last 30 days_DONE
+		// 2. Get a total case number...
 		// 3. Write a method which does this and passes the number as a prop
 		// 		to the cards component.
 		// 4. Once these main 3 numbers are displayed, work on styling/charts.
@@ -30,20 +33,18 @@ export default class App extends React.Component {
 		// 6. Double check/refactor if possible (particularly looking at index.js for API
 
 		// update state
-		this.setState({ munichInfo: munichInfo, caseHistory: caseHistory });
-		// console.log(this.state);
+		this.setState({ munichInfo: munichInfo, monthlyCases: monthlyCases });
+		console.log(this.state);
 	}
 
 	render() {
 		const { casesPerWeek, weekIncidence } = this.state.munichInfo;
+		const monthlyCases = this.state.monthlyCases;
+
 		return (
 			<>
 				<div className={styles.container}>
-					<Cards
-						cases={casesPerWeek}
-						incidence={weekIncidence}
-						caseHistory={this.state.caseHistory}
-					/>
+					<Cards cases={casesPerWeek} incidence={weekIncidence} monthlyCases={monthlyCases} />
 					<h1></h1>
 				</div>
 			</>
