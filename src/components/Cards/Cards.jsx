@@ -2,8 +2,7 @@ import React from "react";
 
 const Cards = (props) => {
 	const { cases, incidence, monthlyCases } = props;
-	console.log(props)
-	
+
 	return (
 		<>
 		  <h4>Cases per week:{cases}</h4> <br />
