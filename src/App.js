@@ -56,7 +56,7 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		// Deconstructing info to pass as props
+		// Destructuring info to pass as props
 		const { recovered, weekIncidence } = this.state.munichInfo;
 		const monthlyCases = this.state.monthlyCases;
 		const date = this.state.lastUpdate;
