@@ -2,7 +2,7 @@ import axios from "axios";
 
 const url = "https://api.corona-zahlen.org/districts/09162";
 
-// Fetch general info for Munich: from here, we'll get incidence and weekly case numbers.
+// Fetch general info for Munich: from here, we'll get week incidence and recovered //numbers.
 export const fetchData = async () => {
 	try {
 		const {
@@ -24,6 +24,19 @@ export const fetchHistoryData = async () => {
 		// create array with of daily case numbers
 		const newHistArray = histArr.map((element) => element.cases);
 		return newHistArray;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// Fetch Last Updated date
+export const fetchLastUpdated = async () => {
+	try {
+		const {
+			data: { meta }
+		} = await axios.get(url);
+		const lastUpdate = meta.lastUpdate;
+		return lastUpdate;
 	} catch (error) {
 		console.log(error);
 	}

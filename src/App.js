@@ -1,18 +1,19 @@
 import React from "react";
 import Cards from "./components/Cards/Cards.jsx";
 import styles from "./App.module.css";
-import { fetchData, fetchHistoryData } from "./api";
+import { fetchData, fetchHistoryData, fetchLastUpdated } from "./api";
 
 export default class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			munichInfo: {},
-			monthlyCases: null
+			monthlyCases: null,
+			lastUpdate: null
 		};
 	}
 	async componentDidMount() {
-		// Fetch general data for weekly cases and weekly incidences, store in simple object
+		// Fetch general data for week incidence average and recovered, store in simple object
 		const munichInfo = await fetchData();
 
 		// Fetch history data for cases (last 30 days)
@@ -21,7 +22,10 @@ export default class App extends React.Component {
 		const monthlyCases = caseHistory.reduce((accumulator, currentValue) => {
 			return accumulator + currentValue;
 		}, 0);
-		console.log(monthlyCases);
+
+		const lastUpdate = await fetchLastUpdated();
+		console.log(lastUpdate);
+		// console.log(monthlyCases);
 
 		// TO DO:
 		// 1. Extract the case numbers from each day of the last 30 days_DONE
@@ -33,18 +37,24 @@ export default class App extends React.Component {
 		// 6. Double check/refactor if possible (particularly looking at index.js for API
 
 		// update state with info
-		this.setState({ munichInfo: munichInfo, monthlyCases: monthlyCases });
+		this.setState({ munichInfo: munichInfo, monthlyCases: monthlyCases, lastUpdate: lastUpdate });
 	}
 
 	render() {
 		// Deconstructing info to pass as props
-		const { casesPerWeek, weekIncidence } = this.state.munichInfo;
+		const { recovered, weekIncidence } = this.state.munichInfo;
 		const monthlyCases = this.state.monthlyCases;
+		const date = this.state.lastUpdate;
 
 		return (
 			<>
 				<div className={styles.container}>
-					<Cards cases={casesPerWeek} incidence={weekIncidence} monthlyCases={monthlyCases} />
+					<Cards
+						recovered={recovered}
+						incidence={weekIncidence}
+						monthlyCases={monthlyCases}
+						date={date}
+					/>
 					<h1></h1>
 				</div>
 			</>
