@@ -1,7 +1,6 @@
 import React from "react";
 import { Cards } from "./components";
 import { Typography, Box } from "@material-ui/core";
-import CountUp from "react-countup";
 import styles from "./App.module.css";
 import {
 	fetchData,
@@ -76,7 +75,7 @@ export default class App extends React.Component {
 					<Box m={2} pt={4} className="vaxBox">
 						<Typography variant="h5">
 							Total vaccinations:
-							<CountUp start={0} end={vaccinations} duration={2} separator="," />
+							{vaccinations}
 						</Typography>
 					</Box>
 					<Box m={1}>
