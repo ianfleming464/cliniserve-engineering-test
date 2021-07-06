@@ -5,7 +5,6 @@ import styles from "./Cards.module.css"
 
 
 const Cards = (props) => {
-	console.log(props)
 	const { threeMonthCases, incidence, recovered, date  } = props;
 
 	return (
