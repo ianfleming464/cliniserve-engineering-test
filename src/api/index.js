@@ -33,9 +33,10 @@ export const fetchHistoryData = async () => {
 		const threeMonthIncidences = newIncArr.reduce((accumulator, currentValue) => {
 			return accumulator + currentValue;
 		}, 0);
+		const threeMonthIncidencesAverage = threeMonthIncidences / 90;
 		// rounded
-		const threeMonthIncidencesRound = Math.round((threeMonthIncidences * 100) / 100);
-		return threeMonthIncidencesRound;
+		const threeMonthIncidencesAverageRound = threeMonthIncidencesAverage.toFixed(2);
+		return threeMonthIncidencesAverageRound;
 	} catch (error) {
 		console.log(error);
 	}
@@ -66,13 +67,14 @@ export const fetchLastUpdated = async () => {
 	}
 };
 
+// Fetch vaccinated figures
 export const fetchVaccinations = async () => {
 	try {
 		const {
 			data: { data }
 		} = await axios.get(vaxUrl);
-		// const totalVax = vaxInfo.vaccinated;
-		return data;
+		const totalVax = data.vaccinated;
+		return totalVax;
 	} catch (error) {
 		console.log(error);
 	}

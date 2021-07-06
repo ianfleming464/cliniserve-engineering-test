@@ -20,4 +20,8 @@ describe("<App /> component", () => {
 	test("correct number of cards rendered", () => {
 		expect(AppWrapper.children()).toHaveLength(Cards.length);
 	});
+
+	test("vaccinations to render", () => {
+		expect(AppWrapper.find(".vaxBox")).toHaveLength(1);
+	});
 });

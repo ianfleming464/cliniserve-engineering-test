@@ -1,6 +1,7 @@
 import React from "react";
 import { Cards } from "./components";
 import { Typography, Box } from "@material-ui/core";
+import CountUp from "react-countup";
 import styles from "./App.module.css";
 import {
 	fetchData,
@@ -38,10 +39,10 @@ export default class App extends React.Component {
 		const munichInfo = await fetchData();
 
 		// Fetch total vaccination numbers info
-		const vax = await fetchVaccinations();
+		const vaccinations = await fetchVaccinations();
 		// console.log(vax);
 
-		// To do: in ReadMe, talk about lack of chart and vaccine info; lack of understanding of epidemiological factors.
+		// To do: in ReadMe, talk about lack of chart; lack of understanding of epidemiological factors.
 
 		// update state with info
 		this.setState({
@@ -49,7 +50,7 @@ export default class App extends React.Component {
 			incidenceHistory: incidenceHistory,
 			lastUpdate: lastUpdate,
 			munichInfo: munichInfo,
-			vaccinations: vax
+			vaccinations: vaccinations
 		});
 	}
 
@@ -60,6 +61,7 @@ export default class App extends React.Component {
 		const { recovered } = this.state.munichInfo;
 		const incidenceHistory = this.state.incidenceHistory;
 		const vaccinations = this.state.vaccinations;
+		console.log(typeof vaccinations);
 
 		return (
 			<>
@@ -71,14 +73,19 @@ export default class App extends React.Component {
 						threeMonthCases={threeMonthCases}
 						date={date}
 					/>
-					<Box m={2} pt={3}>
-						<Typography variant="h6">
-							{" "}
-							A simple app which takes real-time Covid-19 data for the district of Munich (from the
-							Koch Institute API) and displays it.
+					<Box m={2} pt={4} className="vaxBox">
+						<Typography variant="h5">
+							Total vaccinations:
+							<CountUp start={0} end={vaccinations} duration={2} separator="," />
 						</Typography>
 					</Box>
-					<h1></h1>
+					<Box m={1}>
+						<Typography variant="h6">
+							A simple app which takes real-time Covid-19 data for the district of Munich (from the
+							{<a href="https://api.corona-zahlen.org/docs/"> Koch Institute API</a>}) and displays
+							it.
+						</Typography>
+					</Box>
 				</div>
 			</>
 		);
