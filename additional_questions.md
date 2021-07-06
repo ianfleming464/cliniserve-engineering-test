@@ -16,11 +16,11 @@ See previous answer - additional interactivity whereby all the information from 
 
 ## Where do you see issues in your code that might cause issues in the future? How would you monitor the performance of your app?
 
-Perhaps the amount of some of it..I was unable to destructure the information in the usual manner, because the Munich information object (upon digging in) has a key with a string which is a number - namely "09162". I couldn't proceed as normal and had to declare a variable with dot notation to reach "09162", access this with bracket notation, then move on from there; eg. index.js line 28 ### `const incArr = incObj.data.data["09162"].history;`
+Perhaps the amount of some of it..I was unable to destructure the information in the usual manner, because the Munich information object (upon digging in) has a key with a string which is a number - namely "09162". I couldn't proceed as normal and had to declare a variable with dot notation to reach "09162", access this with bracket notation, then move on from there; eg. index.js, line 28 -  `const incArr = incObj.data.data["09162"].history;`
 
 It looks a little unwieldy and isn't the clearest to read. I'm sure there probably is a way to destructure such a deeply nested JSON object without receiving errors for using octal literals in strict mode, and I look forward to finding out and getting better :) Upon hosting, I would use Lighthouse to test and monitor the performance of my app. I would also test it in different browsers and on different devices, both manually and using perhaps www.crossbrowsertesting.com or a similar tool.
 
-## How would you improve the API that you just used or its documentation?
+## How would you improve the API that you just used or its documentation? 
 
 Its documentation was rather minimal, but functional. I would have added some information to explain some of the terms a little better. As I am no epidimiologist, I feel that (for example) the incidence / weekIncidence number / frozen-incidence numbers could be explained more clearly. On the whole, API performance was satisfactory; there were a couple of occasions where I made too many calls in a minute - but not too many occasions. 
 
