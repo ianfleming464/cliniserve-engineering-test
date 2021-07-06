@@ -29,6 +29,7 @@ export const fetchHistoryData = async () => {
 
 		// create array with daily weekIncidence figures
 		const newIncArr = incArr.map((element) => element.weekIncidence);
+
 		// calculate total for last 90 days
 		const threeMonthIncidences = newIncArr.reduce((accumulator, currentValue) => {
 			return accumulator + currentValue;
@@ -45,9 +46,7 @@ export const fetchHistoryData = async () => {
 // Fetch general info for Munich: from here, we'll get the recovered numbers.
 export const fetchData = async () => {
 	try {
-		const {
-			data: { data }
-		} = await axios.get(url);
+		const { data: { data }} = await axios.get(url);
 		return data["09162"];
 	} catch (error) {
 		console.log(error);
@@ -57,9 +56,7 @@ export const fetchData = async () => {
 // Fetch Last Updated date
 export const fetchLastUpdated = async () => {
 	try {
-		const {
-			data: { meta }
-		} = await axios.get(url);
+		const { data: { meta }} = await axios.get(url);
 		const lastUpdate = meta.lastUpdate;
 		return lastUpdate;
 	} catch (error) {
@@ -70,9 +67,7 @@ export const fetchLastUpdated = async () => {
 // Fetch vaccinated figures
 export const fetchVaccinations = async () => {
 	try {
-		const {
-			data: { data }
-		} = await axios.get(vaxUrl);
+		const { data: { data }} = await axios.get(vaxUrl);
 		const totalVax = data.vaccinated;
 		return totalVax;
 	} catch (error) {
